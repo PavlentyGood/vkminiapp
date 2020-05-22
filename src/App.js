@@ -6,6 +6,7 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+import CommandConstructor from './panels/CommandConstructor';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
@@ -32,10 +33,34 @@ const App = () => {
 		setActivePanel(e.currentTarget.dataset.to);
 	};
 
+	const query = () => {
+		//var response = fetch("../query.php");
+		//console.log("QWE: " + response.text());
+
+		const request = require('request');
+		const url = '"../query.php"';
+		var answer = '';
+
+		request({
+			method: 'GET',
+			url: url,
+			qs: {
+				param: 'edit',
+				value: 100
+			}
+		}, function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				answer = body;
+			}
+			console.log("RESP: " + response);
+		})
+	}
+
 	return (
 		<View activePanel={activePanel} popout={popout}>
 			<Home id='home' fetchedUser={fetchedUser} go={go} />
 			<Persik id='persik' go={go} />
+			<CommandConstructor id='command_constructor' go={go} query={query}/>
 		</View>
 	);
 }
