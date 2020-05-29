@@ -38,7 +38,7 @@ const App = () => {
 		//console.log("QWE: " + response.text());
 
 		const request = require('request');
-		const url = '"../query.php"';
+		const url = '../../query.php';
 		var answer = '';
 
 		request({
